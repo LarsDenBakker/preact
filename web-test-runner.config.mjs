@@ -53,12 +53,12 @@ if (sauceLabs) {
 			browserVersion: 'latest',
 			platformName: 'Windows 10'
 		}),
-		sauceLabsLauncher({
-			...sharedCapabilities,
-			browserName: 'internet explorer',
-			browserVersion: '11.0',
-			platformName: 'Windows 7'
-		})
+		// sauceLabsLauncher({
+		// 	...sharedCapabilities,
+		// 	browserName: 'internet explorer',
+		// 	browserVersion: '11.0',
+		// 	platformName: 'Windows 7'
+		// })
 	];
 }
 
@@ -80,11 +80,17 @@ export default {
 	mimeTypes: {
 		'**/*.jsx': 'js'
 	},
+	testFramework: {
+		config: {
+			// concurrent tests can sometimes take longer
+			timeout: sauceLabs ? 5000 : 2000
+		}
+	},
 	browsers,
-	// SauceLabs only allows a max concurrency of 2 in the OSS plan. Pick
-	// an automatic number based on CPU-Cores for non-saucelab runs
-	// concurrency: sauceLabs ? 2 : Math.max(1, os.cpus().length - 1),
-	// concurrency: 5,
+	// SauceLabs only allows a max concurrency of 2 in the OSS plan. 
+	concurrentBrowsers: 2,
+	// Amount of concurrent test files per browser
+	concurrency: sauceLabs ? 4 : os.cpus() / 2,
 	// SauceLabs takes a bit longer to start
   browserStartTimeout:1000 * 60 * 60,
   testsStartTimeout:1000 * 60 * 60,

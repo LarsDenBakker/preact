@@ -90,7 +90,7 @@ export default {
 	// SauceLabs only allows a max concurrency of 2 in the OSS plan. 
 	concurrentBrowsers: 2,
 	// Amount of concurrent test files per browser
-	concurrency: sauceLabs ? 4 : os.cpus() / 2,
+	concurrency: sauceLabs ? 6 : os.cpus() / 2,
 	// SauceLabs takes a bit longer to start
   browserStartTimeout:1000 * 60 * 60,
   testsStartTimeout:1000 * 60 * 60,
